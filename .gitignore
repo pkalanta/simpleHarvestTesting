@@ -1,14 +1,30 @@
-.httr-oauth
-.Rproj.user/*
+# R files and project
+.Rproj.user/
 .Rhistory
 .RData
 .Ruserdata
 *.Rproj*
-.Ruserdata
-*.Rproj
-.httr-oauth
-.Rproj.user
-cache/
+.Rprofile
 
+# OAuth
+.httr-oauth
+
+# Cache and outputs
+cache/
 data/
-*outputs/
+inputs/
+outputs/
+
+# Secrets
+.secret
+.secrets
+
+# System files
+.DS_Store
+
+# Quarto
+.quarto
+
+# Restart files
+.Restart*
+
