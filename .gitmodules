@@ -4,3 +4,15 @@
 [submodule "modules/simpleHarvest"]
 	path = modules/simpleHarvest
 	url = https://github.com/ianmseddy/simpleHarvest
+[submodule "modules/Biomass_borealDataPrep"]
+	path = modules/Biomass_borealDataPrep
+	url = https://github.com/PredictiveEcology/Biomass_borealDataPrep
+[submodule "modules/LandR_reforestation"]
+	path = modules/LandR_reforestation
+	url = https://github.com/ianmseddy/LandR_reforestation
+[submodule "modules/Biomass_regeneration"]
+	path = modules/Biomass_regeneration
+	url = https://github.com/PredictiveEcology/Biomass_regeneration
+[submodule "modules/scfm"]
+	path = modules/scfm
+	url = https://github.com/PredictiveEcology/scfm
