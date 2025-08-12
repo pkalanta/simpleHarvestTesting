@@ -33,7 +33,7 @@ out <- SpaDES.project::setupProject(
   
   require = c("PredictiveEcology/LandR@development (>= 1.1.5.9048)",
               "PredictiveEcology/SpaDES.core@box"),
-  times = list(start = 2011, end = 2021),
+  times = list(start = 2011, end = 2015),
   options = options(reproducible.useMemoise = TRUE),
   params = list(
     globals = list(
