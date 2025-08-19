@@ -12,7 +12,7 @@ out <- SpaDES.project::setupProject(
   paths = list(
     projectPath = getwd(), 
     inputPath = file.path("inputs"),
-    output = file.path("outputs"), 
+    outputPath = file.path("outputs"), 
     cachePath = file.path("cache"),
     modulePath = file.path("modules")
   ),
@@ -31,18 +31,26 @@ out <- SpaDES.project::setupProject(
     'httr2', "gert", "remotes", "terra","data.table"
   ),
   
-  require = c("PredictiveEcology/LandR@development (>= 1.1.5.9048)",
+  # require = c("PredictiveEcology/LandR@development (>= 1.1.5.9048)",
+  #             "PredictiveEcology/SpaDES.core@box"),
+  
+  
+  require = c("PredictiveEcology/LandR@development", 
               "PredictiveEcology/SpaDES.core@box"),
+  
   times = list(start = 2011, end = 2021),
   options = options(reproducible.useMemoise = TRUE),
   params = list(
     globals = list(
-      "sppEquivCol" = "LandR", 
-      ".plots" = "png",
+      sppEquivCol = "LandR", 
+      .plots = "png",
+      .plotInterval = 1,
+      .useCache = "none",
       cohortDefinitionCols = c("speciesCode", "age", "foo")
     ), 
-    simpleHarvest = list(.useCache = ".inputObjects")
-  ),
+    simpleHarvest = list(.useCache = ".inputObjects"),
+    Biomass_core = list(.plots = NA)
+     ),
   studyArea = {
     sa <- prepInputs(url = "https://sis.agr.gc.ca/cansis/nsdb/ecostrat/region/ecoregion_shp.zip", 
                      destinationPath = "inputs")
@@ -64,6 +72,7 @@ out <- SpaDES.project::setupProject(
   }
 )
 
+pkgload::load_all("~/git/LandR")
 #annoying steps because scfm is annoying:
 out$paths$modulePath <- c("modules", "modules/scfm/modules")
 out$modules <- setdiff(c(out$modules, 
