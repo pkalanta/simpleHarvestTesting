@@ -21,7 +21,7 @@ out <- SpaDES.project::setupProject(
   modules = c(
     "PredictiveEcology/Biomass_borealDataPrep@development",
     "PredictiveEcology/Biomass_core@development",
-    "ianmseddy/LandR_reforestation@development",
+    "ianmseddy/LandR_reforestation@parvindev",
     #scfm,
     "PredictiveEcology/scfm@development",
     "PredictiveEcology/Biomass_regeneration@development",
@@ -30,10 +30,6 @@ out <- SpaDES.project::setupProject(
     'RCurl', 'XML', 'snow', 'googledrive', 
     'httr2', "gert", "remotes", "terra","data.table"
   ),
-  
-  # require = c("PredictiveEcology/LandR@development (>= 1.1.5.9048)",
-  #             "PredictiveEcology/SpaDES.core@box"),
-  
   
   require = c("PredictiveEcology/LandR@development", 
               "PredictiveEcology/SpaDES.core@box"),
@@ -50,13 +46,13 @@ out <- SpaDES.project::setupProject(
     ), 
     simpleHarvest = list(.useCache = ".inputObjects"),
     Biomass_core = list(.plots = NA)
-     ),
+  ),
   studyArea = {
     sa <- prepInputs(url = "https://sis.agr.gc.ca/cansis/nsdb/ecostrat/region/ecoregion_shp.zip", 
                      destinationPath = "inputs")
     sa <- sa[sa$REGION_NAM == "Thompson-Okanagan Plateau",]
     sa <- sf::st_transform(sa, sf::st_crs(paste("+proj=lcc +lat_1=49 +lat_2=77 +lat_0=0 +lon_0=-95 +x_0=0 +y_0=0", 
-                                              "+datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")))
+                                                "+datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")))
     sa <- sf::st_buffer(sa, 5000)
     sa <- terra::vect(sa)
   },
@@ -76,8 +72,8 @@ pkgload::load_all("~/git/LandR")
 #annoying steps because scfm is annoying:
 out$paths$modulePath <- c("modules", "modules/scfm/modules")
 out$modules <- setdiff(c(out$modules, 
-                          c("scfmDataPrep", "scfmIgnition", "scfmEscape", "scfmSpread")), 
-                          "scfm")
+                         c("scfmDataPrep", "scfmIgnition", "scfmEscape", "scfmSpread")), 
+                       "scfm")
 out$params$scfmDataPrep$targetN <- 1000 #quick calibration while testing
 
 outSim <- do.call(SpaDES.core::simInitAndSpades, out)
