@@ -25,7 +25,9 @@ out <- SpaDES.project::setupProject(
     #scfm,
     "PredictiveEcology/scfm@development",
     "PredictiveEcology/Biomass_regeneration@development",
-    "pkalanta/simpleHarvest@parvintesting"),
+    #"pkalanta/simpleHarvestTesting@development"
+    "pkalanta/simpleHarvest@parvintesting"
+    ),
   packages = c(
     'RCurl', 'XML', 'snow', 'googledrive', 
     'httr2', "gert", "remotes", "terra","data.table"
@@ -44,7 +46,10 @@ out <- SpaDES.project::setupProject(
       .useCache = "none",
       cohortDefinitionCols = c("speciesCode", "age", "foo")
     ), 
-    simpleHarvest = list(.useCache = ".inputObjects"),
+    simpleHarvest = list(
+      .useCache = ".inputObjects",
+      blockTargets = c("block1" = 0.1, "block2" = 0.05) 
+      ),
     Biomass_core = list(.plots = NA)
   ),
   studyArea = {
