@@ -16,7 +16,7 @@ out <- SpaDES.project::setupProject(
     cachePath = file.path("cache"),
     modulePath = file.path("modules")
   ),
-
+  
   # useGit = TRUE,
   restart = TRUE,
   modules = c(
@@ -27,7 +27,7 @@ out <- SpaDES.project::setupProject(
     "PredictiveEcology/Biomass_regeneration@development"
     , "pkalanta/simpleHarvest@parvintesting"
   ),
-
+  
   packages = c(
     'RCurl', 'XML', 'snow', 'googledrive', 
     'httr2', "gert", "remotes", "terra", "data.table"
@@ -51,15 +51,16 @@ out <- SpaDES.project::setupProject(
       .useCache = c(".inputObjects", "init"),
       cohortDefinitionCols = c("speciesCode", "age", "foo")
     ), 
-    simpleHarvest = list(.useCache = ".inputObjects"),
+    simpleHarvest = list(.useCache = ".inputObjects",
+                         harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01)),
     Biomass_core = list(.plots = NA)
   ),
   
   studyArea = {
     sa <- prepInputs(
-           url = "https://sis.agr.gc.ca/cansis/nsdb/ecostrat/region/ecoregion_shp.zip", 
-           destinationPath = "inputs"
-           )
+      url = "https://sis.agr.gc.ca/cansis/nsdb/ecostrat/region/ecoregion_shp.zip", 
+      destinationPath = "inputs"
+    )
     sa <- sa[sa$REGION_NAM == "Thompson-Okanagan Plateau",]
     sa <- sf::st_transform(sa, sf::st_crs(paste("+proj=lcc +lat_1=49 +lat_2=77 +lat_0=0 +lon_0=-95 +x_0=0 +y_0=0", 
                                                 "+datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")))
@@ -74,7 +75,7 @@ out <- SpaDES.project::setupProject(
   },
   rasterToMatch = {
     rtm <- terra::rast(studyArea, vals = 1, res = c(250, 250)) |>
-    terra::mask(mask = studyArea)
+      terra::mask(mask = studyArea)
   }
 )
 
