@@ -3,7 +3,8 @@
 	url = https://github.com/PredictiveEcology/Biomass_core.git
 [submodule "modules/simpleHarvest"]
 	path = modules/simpleHarvest
-	url = git@github.com:pkalanta/simpleHarvest.git
+	url = https://github.com/pkalanta/simpleHarvest.git
+	branch = parvintesting
 [submodule "modules/Biomass_borealDataPrep"]
 	path = modules/Biomass_borealDataPrep
 	url = https://github.com/PredictiveEcology/Biomass_borealDataPrep.git

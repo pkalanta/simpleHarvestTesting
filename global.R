@@ -1,4 +1,32 @@
 
+# =============================================================================
+# SpaDES Forest Landscape Simulation – Thompson-Okanagan Plateau
+# Author: Parvin Kalantari
+# Date: Summer 2025
+# 
+# Overview:
+#   This script sets up and runs a forest landscape simulation using the SpaDES
+#   framework. It combines multiple modules that represent key ecological 
+#   processes, such as biomass growth, forest regeneration, harvesting, and 
+#   fire spread, to model the dynamics of the study area (e.g.Thompson-Okanagan Plateau region).
+#
+# Workflow:
+#   1. Clean the workspace and ensure all required packages are installed.
+#   2. Set up the project structure, including inputs, outputs, cache, and 
+#      module directories.
+#   3. Download and prepare spatial data for the study area, including ecoregion
+#      boundaries and species distributions.
+#   4. Configure modules and their parameters, including harvest targets and 
+#      plotting options.
+#   5. Initialize and run the simulation for the period 2011–2021.
+#   6. Optionally, use local development versions of packages for testing 
+#      changes.
+#
+# Purpose:
+#   This script is intended to provide a reproducible and flexible workflow
+#   for running forest landscape simulations, facilitating testing, calibration,
+#   and further development of SpaDES modules.
+# =============================================================================
 rm(list = ls())  # clears all objects
 gc()             # clears memory
 
@@ -52,7 +80,7 @@ out <- SpaDES.project::setupProject(
       cohortDefinitionCols = c("speciesCode", "age", "foo")
     ), 
     simpleHarvest = list(.useCache = ".inputObjects",
-                         harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01)),
+                         harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008)),
     Biomass_core = list(.plots = NA)
   ),
   
