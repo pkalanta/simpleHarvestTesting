@@ -66,8 +66,7 @@ out <- SpaDES.project::setupProject(
     "PredictiveEcology/SpaDES.core@box"
   ),
   
-  times = list(start = 2011, end = 2021),
-  # options = options(reproducible.useMemoise = TRUE),
+  times = list(start = 2011, end = 2040),
   options = list(reproducible.useMemoise = TRUE,
                  spades.moduleCodeChecks = FALSE,
                  spades.allowInitDuringSimInit = TRUE),
