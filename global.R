@@ -79,7 +79,21 @@ out <- SpaDES.project::setupProject(
       cohortDefinitionCols = c("speciesCode", "age", "foo")
     ), 
     simpleHarvest = list(.useCache = ".inputObjects",
-                         harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008)),
+                        # harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008)),
+                        harvestTarget = list(
+                          "1" = list(
+                            default = 0.05,           # default target for block 1
+                            Pinu_con = 0.01,          # species-specific override
+                            Pice_gla = 0.02
+                          ),
+                          "2" = list(
+                            default = 0.02,
+                            Pinu_con = 0.01
+                          ),
+                          "3" = 0.01,                 # same target for all species in block 3
+                          "4" = 0.008                 # same target for all species in block 4
+                        )
+    ),
     Biomass_core = list(.plots = NA)
   ),
   
