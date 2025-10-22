@@ -52,8 +52,8 @@ out <- SpaDES.project::setupProject(
     "PredictiveEcology/Biomass_core@development",
     "ianmseddy/LandR_reforestation@parvindev",
     "PredictiveEcology/scfm@development",
-    "PredictiveEcology/Biomass_regeneration@development"
-    , "pkalanta/simpleHarvest@parvintesting"
+    "PredictiveEcology/Biomass_regeneration@development",
+    "pkalanta/simpleHarvest@parvintesting"
   ),
   
   packages = c(
@@ -70,7 +70,18 @@ out <- SpaDES.project::setupProject(
   options = list(reproducible.useMemoise = TRUE,
                  spades.moduleCodeChecks = FALSE,
                  spades.allowInitDuringSimInit = TRUE),
-  params = list(
+  # outputs = data.frame(objectName = c("cohortData", "pixelGroupMap"),
+  #                      saveTime = times$start:times$end),
+  # outputs <- data.frame(
+  #   objectName = rep(c("cohortData", "pixelGroupMap"),
+  #                    each = times$end - times$start + 1),
+  #   saveTime   = rep(times$start:times$end, times = 2),
+  #   stringsAsFactors = FALSE
+  # ),
+  
+  outputs = data.frame(objectName = "cohortData",
+                      saveTime = times$start:times$end),
+   params = list(
     globals = list(
       sppEquivCol = "LandR", 
       .plots = "png",
@@ -82,7 +93,7 @@ out <- SpaDES.project::setupProject(
                         # harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008)),
                         harvestTarget = list(
                           "1" = list(
-                            default = 0.05,           # default target for block 1
+                            default = 0.005,           # default target for block 1
                             Pinu_con = 0.01,          # species-specific override
                             Pice_gla = 0.02
                           ),
