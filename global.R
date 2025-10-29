@@ -70,17 +70,16 @@ out <- SpaDES.project::setupProject(
   options = list(reproducible.useMemoise = TRUE,
                  spades.moduleCodeChecks = FALSE,
                  spades.allowInitDuringSimInit = TRUE),
+  
   # outputs = data.frame(objectName = c("cohortData", "pixelGroupMap"),
   #                      saveTime = times$start:times$end),
-  # outputs <- data.frame(
-  #   objectName = rep(c("cohortData", "pixelGroupMap"),
-  #                    each = times$end - times$start + 1),
-  #   saveTime   = rep(times$start:times$end, times = 2),
-  #   stringsAsFactors = FALSE
-  # ),
+
+ 
+  outputs = rbind(
+    data.frame(objectName = "cohortData", saveTime = times$start:times$end),
+    data.frame(objectName = "pixelGroupMap", saveTime = times$start:times$end)
+  ),
   
-  outputs = data.frame(objectName = "cohortData",
-                      saveTime = times$start:times$end),
    params = list(
     globals = list(
       sppEquivCol = "LandR", 
