@@ -45,7 +45,8 @@ out <- SpaDES.project::setupProject(
     modulePath = file.path("modules")
   ),
   
-  # useGit = TRUE,
+  useGit = TRUE,
+  # useGit = "pkalanta",
   restart = TRUE,
   modules = c(
     "PredictiveEcology/Biomass_borealDataPrep@development",
@@ -61,20 +62,15 @@ out <- SpaDES.project::setupProject(
     'httr2', "gert", "remotes", "terra", "data.table"
   ),
   
-  require = c(
-    "PredictiveEcology/LandR@development",
-    "PredictiveEcology/SpaDES.core@box"
-  ),
+  require = c( "PredictiveEcology/LandR@development (>= 1.1.5.9086)",
+               "PredictiveEcology/SpaDES.core@development",
+               "PredictiveEcology/reproducible@development" ),
   
   times = list(start = 2011, end = 2040),
   options = list(reproducible.useMemoise = TRUE,
                  spades.moduleCodeChecks = FALSE,
                  spades.allowInitDuringSimInit = TRUE),
-  
-  # outputs = data.frame(objectName = c("cohortData", "pixelGroupMap"),
-  #                      saveTime = times$start:times$end),
 
- 
   outputs = rbind(
     data.frame(objectName = "cohortData", saveTime = times$start:times$end),
     data.frame(objectName = "pixelGroupMap", saveTime = times$start:times$end)
@@ -89,21 +85,21 @@ out <- SpaDES.project::setupProject(
       cohortDefinitionCols = c("speciesCode", "age", "foo")
     ), 
     simpleHarvest = list(.useCache = ".inputObjects",
-                        # harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008)),
-                        harvestTarget = list(
-                          "1" = list(
-                            default = 0.005,           # default target for block 1
-                            Pinu_con = 0.01,          # species-specific override
-                            Pice_gla = 0.02
-                          ),
-                          "2" = list(
-                            default = 0.02,
-                            Pinu_con = 0.01
-                          ),
-                          "3" = 0.01,                 # same target for all species in block 3
-                          "4" = 0.008                 # same target for all species in block 4
-                        )
-    ),
+                        harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008)),
+    #                     harvestTarget = list(
+    #                       "1" = list(
+    #                         default = 0.005,           # default target for block 1
+    #                         Pinu_con = 0.01,          # species-specific override
+    #                         Pice_gla = 0.02
+    #                       ),
+    #                       "2" = list(
+    #                         default = 0.02,
+    #                         Pinu_con = 0.01
+    #                       ),
+    #                       "3" = 0.01,                 # same target for all species in block 3
+    #                       "4" = 0.008                 # same target for all species in block 4
+    #                     )
+    # ),
     Biomass_core = list(.plots = NA)
   ),
   
@@ -130,7 +126,7 @@ out <- SpaDES.project::setupProject(
   }
 )
 
-pkgload::load_all("~/git/LandR")
+#pkgload::load_all("~/git/LandR")
 #annoying steps because scfm is annoying:
 out$paths$modulePath <- c("modules", "modules/scfm/modules")
 out$modules <- setdiff(c(out$modules, 
