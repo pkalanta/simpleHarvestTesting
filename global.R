@@ -46,8 +46,7 @@ out <- SpaDES.project::setupProject(
   ),
   
   useGit = TRUE,
-  # useGit = "pkalanta",
-  restart = TRUE,
+  #useGit = "pkalanta",
   modules = c(
     "PredictiveEcology/Biomass_borealDataPrep@development",
     "PredictiveEcology/Biomass_core@development",
@@ -62,7 +61,7 @@ out <- SpaDES.project::setupProject(
     'httr2', "gert", "remotes", "terra", "data.table"
   ),
   
-  require = c( "PredictiveEcology/LandR@development (>= 1.1.5.9086)",
+  require = c( "PredictiveEcology/LandR@development (>= 1.1.5.9091)",
                "PredictiveEcology/SpaDES.core@development",
                "PredictiveEcology/reproducible@development" ),
   
@@ -70,22 +69,21 @@ out <- SpaDES.project::setupProject(
   options = list(reproducible.useMemoise = TRUE,
                  spades.moduleCodeChecks = FALSE,
                  spades.allowInitDuringSimInit = TRUE),
-
+  
   outputs = rbind(
     data.frame(objectName = "cohortData", saveTime = times$start:times$end),
     data.frame(objectName = "pixelGroupMap", saveTime = times$start:times$end)
   ),
   
-   params = list(
+  params = list(
     globals = list(
       sppEquivCol = "LandR", 
       .plots = "png",
       .plotInterval = 1,
-      .useCache = c(".inputObjects", "init"),
-      cohortDefinitionCols = c("speciesCode", "age", "foo")
+      .useCache = c(".inputObjects", "init")
     ), 
     simpleHarvest = list(.useCache = ".inputObjects",
-                        harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008)),
+                         harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008)),
     #                     harvestTarget = list(
     #                       "1" = list(
     #                         default = 0.005,           # default target for block 1
@@ -100,7 +98,8 @@ out <- SpaDES.project::setupProject(
     #                       "4" = 0.008                 # same target for all species in block 4
     #                     )
     # ),
-    Biomass_core = list(.plots = NA)
+    Biomass_core = list(.plots = NA), 
+    Biomass_borealDataPrep = list(overrideAgeInFires = FALSE)
   ),
   
   studyArea = {
