@@ -82,24 +82,10 @@ out <- SpaDES.project::setupProject(
       .plotInterval = 1,
       .useCache = c(".inputObjects", "init")
     ), 
-    simpleHarvest = list(.useCache = ".inputObjects",
-                         # harvestTarget = c("1" = 0.05, "2" = 0.02, "3"= 0.01, "4"= 0.008),
-                         harvestTarget = list(
-                           "1" = list(
-                             default = 0.005,           # default target for block 1
-                             Pinu_con = 0.01,          # species-specific override
-                             Pice_gla = 0.02
-                           ),
-                           "2" = list(
-                             default = 0.02,
-                             Pinu_con = 0.01
-                           ),
-                           "3" = 0.01,                 # same target for all species in block 3
-                           "4" = 0.008                 # same target for all species in block 4
-                         ),
-                       verbose = 1 #message everything to console 
+    simpleHarvest = list(
+      .useCache = ".inputObjects"
     ),
-
+    
     Biomass_core = list(.plots = NA), 
     Biomass_borealDataPrep = list(overrideAgeInFires = FALSE)
   ),
@@ -134,8 +120,5 @@ out$modules <- setdiff(c(out$modules,
                          c("scfmDataPrep", "scfmIgnition", "scfmEscape", "scfmSpread")), 
                        "scfm")
 out$params$scfmDataPrep$targetN <- 1000 #quick calibration while testing
-#set.seed(23)
+
 outSim <- do.call(SpaDES.core::simInitAndSpades, out)
-
-
-
